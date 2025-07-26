@@ -17,7 +17,7 @@
         <th>outcome</th>
         <th>slug(ET)</th>
         <th>openAt</th>
-        <th>price</th>
+        <th>openPrice</th>
         <th>size</th>
         <th>openVal</th>
         <th>closeAt</th>
@@ -38,12 +38,12 @@
         <td style="word-break: break-all; font-size: small;">{{ p.outcome }}</td>
         <td style="word-break: break-all; font-size: small;">{{ p.slug }}</td>
         <td>{{ p.openAt }}</td>
-        <td style="width: 2rem;">{{ Number(p.openPrice).toFixed(1) }}</td>
-        <td style="width: 3rem;">{{ Number(p.openSize).toFixed(1) }}</td>
-        <td style="width: 3rem;">{{ Number(p.openValue).toFixed(1) }}</td>
+        <td style="width: 2rem;">{{ Number(p.openPrice).toFixed(2) }}</td>
+        <td style="width: 3rem;">{{ Number(p.openSize).toFixed(2) }}</td>
+        <td style="width: 3rem;">{{ Number(p.openValue).toFixed(2) }}</td>
         <td>{{ p.closeAt }}</td>
-        <td style="width: 3rem;">{{ Number(p.closeValue).toFixed(1) }}</td>
-        <td style="width: 3rem;">{{ Number(p.pnl).toFixed(1) }}</td>
+        <td style="width: 3rem;">{{ Number(p.closeValue).toFixed(2) }}</td>
+        <td style="width: 3rem;">{{ Number(p.pnl).toFixed(2) }}</td>
         <td style="width: 3rem;">{{ Number(p.assetValue).toFixed(1) }}</td>
         <td>{{ p.closeBy }}</td>
         <td>{{ p.stopProfit1at }}</td>
