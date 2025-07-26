@@ -18,6 +18,7 @@
         <th>slug(ET)</th>
         <th>openAt</th>
         <th>openPrice</th>
+        <th>sumPrice</th>
         <th>size</th>
         <th>openVal</th>
         <th>closeAt</th>
@@ -39,6 +40,7 @@
         <td style="word-break: break-all; font-size: small;">{{ p.slug }}</td>
         <td>{{ p.openAt }}</td>
         <td style="width: 2rem;">{{ Number(p.openPrice).toFixed(2) }}</td>
+        <td style="width: 2rem;">{{ Number(p.sumPrice).toFixed(2) }}</td>
         <td style="width: 3rem;">{{ Number(p.openSize).toFixed(2) }}</td>
         <td style="width: 3rem;">{{ Number(p.openValue).toFixed(2) }}</td>
         <td>{{ p.closeAt }}</td>
@@ -87,7 +89,18 @@ const myGetList = async () => {
     loading.value = true;
     const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${walletAddress.value}`)
     list.value = await res.json()
-    list.value.forEach(p => {
+
+    let pairs = new Map();
+    for (let i = 0; i < list.value.length; i++) {
+      let p = list.value[i];
+
+      let q = pairs.get(p.batch);
+      if (q) {
+        p.sumPrice = Number(q.openPrice) + Number(p.openPrice);
+        q.sumPrice = p.sumPrice;
+      } else {
+        pairs.set(p.batch, p);
+      }
       p.slug = formatSlug(p.slug);
       p.openAt = convertUTCToLocal(p.openAt);
       p.closeAt = convertUTCToLocal(p.closeAt);
@@ -110,7 +123,7 @@ const myGetList = async () => {
       p.stopLosst8at = convertUTCToLocal(p.stopLosst8at);
       p.stopLosst9at = convertUTCToLocal(p.stopLosst9at);
 
-    })
+    }
     console.log('trades: ', list.value)
   } catch (error) {
     console.error(error)
