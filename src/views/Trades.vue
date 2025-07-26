@@ -24,6 +24,7 @@
         <th>closeVal</th>
         <th>PnL</th>
         <th>Balance</th>
+        <th>CloseBy</th>
         <th>stopProfit1</th>
         <th>stopProfit2</th>
         <th>stopProfit3</th>
@@ -44,6 +45,7 @@
         <td style="width: 3rem;">{{ Number(p.closeValue).toFixed(1) }}</td>
         <td style="width: 3rem;">{{ Number(p.pnl).toFixed(1) }}</td>
         <td style="width: 3rem;">{{ Number(p.assetValue).toFixed(1) }}</td>
+        <td>{{ p.closeBy }}</td>
         <td>{{ p.stopProfit1at }}</td>
         <td>{{ p.stopProfit2at }}</td>
         <td>{{ p.stopProfit3at }}</td>
