@@ -1,3 +1,3 @@
-export const POLYMARKET_ARBITRAGE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000'
+export const POLYMARKET_ARBITRAGE_URL = import.meta.env.VITE_API_URL || ''
 
 console.log('POLYMARKET_ARBITRAGE_URL', POLYMARKET_ARBITRAGE_URL)
