@@ -30,6 +30,11 @@
         <th>stopProfit2</th>
         <th>stopProfit3</th>
         <th>stopProfit4</th>
+        <th>stopProfit5</th>
+        <th>stopProfit6</th>
+        <th>stopProfit7</th>
+        <th>stopProfit8</th>
+        <th>stopProfit9</th>
       </tr>
     </thead>
     <tbody>
@@ -52,6 +57,11 @@
         <td>{{ p.stopProfit2at }}</td>
         <td>{{ p.stopProfit3at }}</td>
         <td>{{ p.stopProfit4at }}</td>
+        <td>{{ p.stopProfit5at }}</td>
+        <td>{{ p.stopProfit6at }}</td>
+        <td>{{ p.stopProfit7at }}</td>
+        <td>{{ p.stopProfit8at }}</td>
+        <td>{{ p.stopProfit9at }}</td>
       </tr>
     </tbody>
   </table>
@@ -134,3 +144,15 @@ const myGetList = async () => {
 }
 
 </script>
+
+<style scoped>
+th {
+  position: sticky;
+  top: 0;
+  /* Sticks to the top of its containing block when scrolled */
+  background-color: #f2f2f2;
+  /* Optional: for better visibility */
+  z-index: 1;
+  /* Ensures header is above scrolling content */
+}
+</style>
