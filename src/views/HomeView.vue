@@ -5,7 +5,7 @@
 
   <h4 style="width:100%; text-align: center;">Asset Balance</h4>
   <div class="row">
-    <input v-model="walletAddress" placeholder="Enter wallet address" />
+    <Addresses />
     <button @click="myGetList" :disabled="loading">{{ loading ? 'Loading...' : 'Get Asset Balance' }}</button>
   </div>
   <div style="padding:1rem;">{{ result }}</div>
@@ -17,11 +17,10 @@ import { ref, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import { convertUTCToLocal } from '../api/util.ts'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const.ts'
+import Addresses from '@/components/Addresses.vue'
 
 const list = ref([]);
 const loading = ref(false);
-const walletAddress = ref('');
-walletAddress.value = localStorage.getItem('address') || '';
 
 let chartRevenue = ref<any>(null)
 let result = ref('')
@@ -34,13 +33,17 @@ onUnmounted(() => {
 })
 
 const myGetList = async () => {
-  if (!walletAddress.value) {
-    walletAddress.value = localStorage.getItem('address') || '';
+  const address = localStorage.getItem('address')
+  console.log('myGetList address: ', address)
+  if (!address) {
+    result.value = 'Please select an address first.'
+    return
   }
+
   try {
     loading.value = true;
     console.log('POLYMARKET_ARBITRAGE_URL asset: ', POLYMARKET_ARBITRAGE_URL)
-    const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-values?address=${walletAddress.value}`)
+    const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-values?address=${address}`)
     list.value = await res.json()
     console.log('values: ', list.value)
 
@@ -48,7 +51,7 @@ const myGetList = async () => {
     let len = list1.length
 
     if (len == 0) {
-      return
+      // return
     }
     list1.map((item: any) => {
       item.openAt = convertUTCToLocal(item.openAt)

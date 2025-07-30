@@ -4,7 +4,9 @@
     </div>
 
     <div class="row">
-        <input v-model="positionFilter" placeholder="position filter" style="width: 150px;" />
+        Address:
+        <Addresses />
+        Filter: <input v-model="positionFilter" placeholder="position filter" style="width: 150px;" />
         <button @click="myGetUserPosition">get position</button>
     </div>
     <table v-if="positions" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
@@ -38,6 +40,7 @@
 <script setup>
 import { ref } from 'vue';
 import { getUserPosition } from '@/api/polymarket'
+import Addresses from '@/components/Addresses.vue';
 
 const positions = ref([]);
 const loading = ref(false);
@@ -57,14 +60,14 @@ const arr = date.split(',')
 positionFilter.value = arr[0]
 
 const myGetUserPosition = async () => {
-    let walletAddress = localStorage.getItem('address');
-    if (!walletAddress) {
-        alert('Please connect wallet first')
+    let address = localStorage.getItem('address');
+    if (!address) {
+        alert('Please select an address first')
         return
     }
     try {
         loading.value = true;
-        positions.value = await getUserPosition(walletAddress)
+        positions.value = await getUserPosition(address)
         positions.value = positions.value.filter(p => p.title.indexOf(positionFilter.value) > 0)
         positions.value = positions.value.map((p) => {
             p.title = p.title.replace('Up or Down ', '')

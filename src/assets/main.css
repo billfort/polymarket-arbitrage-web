@@ -87,7 +87,7 @@ input {
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  /* width: 95%; */
   margin: 1rem;
 }
 

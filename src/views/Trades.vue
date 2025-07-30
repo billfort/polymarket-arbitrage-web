@@ -5,7 +5,7 @@
   </div>
 
   <div class="row">
-    <input v-model="walletAddress" placeholder="wallet address" style="width: 320px;" />
+    <Addresses />
     <button @click="myGetList">get trades</button>
   </div>
   <table v-if="list" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
@@ -72,12 +72,10 @@
 import { ref } from 'vue';
 import { convertUTCToLocal } from '../api/util'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const'
+import Addresses from '@/components/Addresses.vue'
 
 const list = ref([]);
 const loading = ref(false);
-const walletAddress = ref('');
-
-walletAddress.value = localStorage.getItem('address');
 
 function formatSlug(slug) {
   let arr = slug.split('-');
@@ -92,12 +90,15 @@ function formatSlug(slug) {
 }
 
 const myGetList = async () => {
-  if (!walletAddress.value) {
-    walletAddress.value = localStorage.getItem('address');
+  const address = localStorage.getItem('address')
+  if (!address) {
+    alert('Please select an address first.')
+    return
   }
+
   try {
     loading.value = true;
-    const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${walletAddress.value}`)
+    const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${address}`)
     list.value = await res.json()
 
     let pairs = new Map();

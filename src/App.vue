@@ -11,7 +11,7 @@ import Wallet from './components/Wallet.vue'
         <RouterLink to="/trades">Trade History</RouterLink>
         <RouterLink to="/positions">Open Positions</RouterLink>
       </nav>
-      <Wallet />
+      <!-- <Wallet /> -->
     </div>
   </header>
 
