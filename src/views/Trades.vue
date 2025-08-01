@@ -118,15 +118,15 @@ const myGetList = async () => {
       t.stopProfit7at = convertUTCToLocal(t.stopProfit7at);
       t.stopProfit8at = convertUTCToLocal(t.stopProfit8at);
       t.stopProfit9at = convertUTCToLocal(t.stopProfit9at);
-      t.stopLosst1at = convertUTCToLocal(t.stopLosst1at);
-      t.stopLosst2at = convertUTCToLocal(t.stopLosst2at);
-      t.stopLosst3at = convertUTCToLocal(t.stopLosst3at);
-      t.stopLosst4at = convertUTCToLocal(t.stopLosst4at);
-      t.stopLosst5at = convertUTCToLocal(t.stopLosst5at);
-      t.stopLosst6at = convertUTCToLocal(t.stopLosst6at);
-      t.stopLosst7at = convertUTCToLocal(t.stopLosst7at);
-      t.stopLosst8at = convertUTCToLocal(t.stopLosst8at);
-      t.stopLosst9at = convertUTCToLocal(t.stopLosst9at);
+      t.stopLoss1at = convertUTCToLocal(t.stopLoss1at);
+      t.stopLoss2at = convertUTCToLocal(t.stopLoss2at);
+      t.stopLoss3at = convertUTCToLocal(t.stopLoss3at);
+      t.stopLoss4at = convertUTCToLocal(t.stopLoss4at);
+      t.stopLoss5at = convertUTCToLocal(t.stopLoss5at);
+      t.stopLoss6at = convertUTCToLocal(t.stopLoss6at);
+      t.stopLoss7at = convertUTCToLocal(t.stopLoss7at);
+      t.stopLoss8at = convertUTCToLocal(t.stopLoss8at);
+      t.stopLoss9at = convertUTCToLocal(t.stopLoss9at);
 
       const outcome = t.outcome;
 

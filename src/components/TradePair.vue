@@ -90,15 +90,15 @@
                 </tr>
                 <tr style="color: green;">
                     <td>stop loss</td>
-                    <td>{{ pub.stopLosst1at }}</td>
-                    <td> {{ pub.stopLosst2at }}</td>
-                    <td> {{ pub.stopLosst3at }}</td>
-                    <td> {{ pub.stopLosst4at }}</td>
-                    <td> {{ pub.stopLosst5at }}</td>
-                    <td> {{ pub.stopLosst6at }}</td>
-                    <td> {{ pub.stopLosst7at }}</td>
-                    <td> {{ pub.stopLosst8at }}</td>
-                    <td> {{ pub.stopLosst9at }}</td>
+                    <td>{{ pub.stopLoss1at }}</td>
+                    <td> {{ pub.stopLoss2at }}</td>
+                    <td> {{ pub.stopLoss3at }}</td>
+                    <td> {{ pub.stopLoss4at }}</td>
+                    <td> {{ pub.stopLoss5at }}</td>
+                    <td> {{ pub.stopLoss6at }}</td>
+                    <td> {{ pub.stopLoss7at }}</td>
+                    <td> {{ pub.stopLoss8at }}</td>
+                    <td> {{ pub.stopLoss9at }}</td>
                 </tr>
             </tbody>
         </table>
