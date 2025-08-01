@@ -131,11 +131,14 @@ const myGetList = async () => {
       const outcome = t.outcome;
 
       let p = pairs.value.get(t.batch);
+      const theOther = outcome == 'up' ? 'down' : 'up';
       if (p) {
-        const theOther = outcome == 'up' ? 'down' : 'up';
-        p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
-        t.sumPrice = p[theOther].sumPrice;
-        p[outcome] = t;
+        const theOtherTrade = p[theOther];
+        if (theOtherTrade.slug == t.slug) {
+          p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
+          t.sumPrice = p[theOther].sumPrice;
+          p[outcome] = t;
+        }
       } else {
         const m = {};
         m[outcome] = t
