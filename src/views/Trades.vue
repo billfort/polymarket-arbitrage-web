@@ -132,7 +132,7 @@ const myGetList = async () => {
       const theOther = outcome == 'up' ? 'down' : 'up';
 
       let p = pairs.value.get(t.batch);
-      if (p) {
+      if (p && !p[outcome]) {
 
         const theOtherTrade = p[theOther];
         if (!theOtherTrade) {
