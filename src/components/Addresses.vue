@@ -11,12 +11,12 @@ import { POLYMARKET_ARBITRAGE_URL } from '@/api/const';
 const addresses = ref([]);
 const address = ref('');
 addresses.value = JSON.parse(localStorage.getItem('addresses') || '[]');
-address.value = localStorage.getItem('address') || addresses.value[0] || '';
 
 fetch(`${POLYMARKET_ARBITRAGE_URL}/api/addresses`).then(res => {
     res.json().then(data => {
         addresses.value = data || [];
         localStorage.setItem('addresses', JSON.stringify(addresses.value))
+        address.value = localStorage.getItem('address') || addresses.value[0] || '';
     }).catch(err => {
         console.error('Failed to res.json():', err)
     })

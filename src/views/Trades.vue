@@ -8,7 +8,10 @@
     <Addresses />
     <button @click="myGetList">get trades</button>
   </div>
-  <table v-if="list" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
+  <div v-for="(value, key) in pairs" :key="key">
+    <TradePair :pair="value" />
+  </div>
+  <!-- <table v-if="list" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
     border="1">
     <thead>
       <tr>
@@ -64,7 +67,7 @@
         <td>{{ p.stopProfit9at }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
 </template>
 
@@ -73,20 +76,20 @@ import { ref } from 'vue';
 import { convertUTCToLocal } from '../api/util'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const'
 import Addresses from '@/components/Addresses.vue'
+import TradePair from '@/components/TradePair.vue'
 
 const list = ref([]);
+const pairs = ref(new Map());
 const loading = ref(false);
 
 function formatSlug(slug) {
   let arr = slug.split('-');
-  console.log('arr: ', arr)
   const len = arr.length;
   if (len < 4) {
     return slug;
   }
   arr = arr.splice(len - 4, 3);
-  console.log('arr2: ', arr)
-  return arr.join(' ');
+  return `${arr[0]} ${arr[1]}, ${arr[2]}`;
 }
 
 const myGetList = async () => {
@@ -101,41 +104,46 @@ const myGetList = async () => {
     const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${address}`)
     list.value = await res.json()
 
-    let pairs = new Map();
     for (let i = 0; i < list.value.length; i++) {
-      let p = list.value[i];
+      let t = list.value[i];
+      t.slug = formatSlug(t.slug);
+      t.openAt = convertUTCToLocal(t.openAt);
+      t.closeAt = convertUTCToLocal(t.closeAt);
+      t.stopProfit1at = convertUTCToLocal(t.stopProfit1at);
+      t.stopProfit2at = convertUTCToLocal(t.stopProfit2at);
+      t.stopProfit3at = convertUTCToLocal(t.stopProfit3at);
+      t.stopProfit4at = convertUTCToLocal(t.stopProfit4at);
+      t.stopProfit5at = convertUTCToLocal(t.stopProfit5at);
+      t.stopProfit6at = convertUTCToLocal(t.stopProfit6at);
+      t.stopProfit7at = convertUTCToLocal(t.stopProfit7at);
+      t.stopProfit8at = convertUTCToLocal(t.stopProfit8at);
+      t.stopProfit9at = convertUTCToLocal(t.stopProfit9at);
+      t.stopLosst1at = convertUTCToLocal(t.stopLosst1at);
+      t.stopLosst2at = convertUTCToLocal(t.stopLosst2at);
+      t.stopLosst3at = convertUTCToLocal(t.stopLosst3at);
+      t.stopLosst4at = convertUTCToLocal(t.stopLosst4at);
+      t.stopLosst5at = convertUTCToLocal(t.stopLosst5at);
+      t.stopLosst6at = convertUTCToLocal(t.stopLosst6at);
+      t.stopLosst7at = convertUTCToLocal(t.stopLosst7at);
+      t.stopLosst8at = convertUTCToLocal(t.stopLosst8at);
+      t.stopLosst9at = convertUTCToLocal(t.stopLosst9at);
 
-      let q = pairs.get(p.batch);
-      if (q) {
-        p.sumPrice = Number(q.openPrice) + Number(p.openPrice);
-        q.sumPrice = p.sumPrice;
+      const outcome = t.outcome;
+
+      let p = pairs.value.get(t.batch);
+      if (p) {
+        const theOther = outcome == 'up' ? 'down' : 'up';
+        p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
+        t.sumPrice = p[theOther].sumPrice;
+        p[outcome] = t;
       } else {
-        pairs.set(p.batch, p);
+        const m = {};
+        m[outcome] = t
+        m.pub = t
+        pairs.value.set(t.batch, m);
       }
-      p.slug = formatSlug(p.slug);
-      p.openAt = convertUTCToLocal(p.openAt);
-      p.closeAt = convertUTCToLocal(p.closeAt);
-      p.stopProfit1at = convertUTCToLocal(p.stopProfit1at);
-      p.stopProfit2at = convertUTCToLocal(p.stopProfit2at);
-      p.stopProfit3at = convertUTCToLocal(p.stopProfit3at);
-      p.stopProfit4at = convertUTCToLocal(p.stopProfit4at);
-      p.stopProfit5at = convertUTCToLocal(p.stopProfit5at);
-      p.stopProfit6at = convertUTCToLocal(p.stopProfit6at);
-      p.stopProfit7at = convertUTCToLocal(p.stopProfit7at);
-      p.stopProfit8at = convertUTCToLocal(p.stopProfit8at);
-      p.stopProfit9at = convertUTCToLocal(p.stopProfit9at);
-      p.stopLosst1at = convertUTCToLocal(p.stopLosst1at);
-      p.stopLosst2at = convertUTCToLocal(p.stopLosst2at);
-      p.stopLosst3at = convertUTCToLocal(p.stopLosst3at);
-      p.stopLosst4at = convertUTCToLocal(p.stopLosst4at);
-      p.stopLosst5at = convertUTCToLocal(p.stopLosst5at);
-      p.stopLosst6at = convertUTCToLocal(p.stopLosst6at);
-      p.stopLosst7at = convertUTCToLocal(p.stopLosst7at);
-      p.stopLosst8at = convertUTCToLocal(p.stopLosst8at);
-      p.stopLosst9at = convertUTCToLocal(p.stopLosst9at);
-
     }
-    console.log('trades: ', list.value)
+    console.log('pairs: ', pairs.value)
   } catch (error) {
     console.error(error)
     alert('Fail to fetch trades')
