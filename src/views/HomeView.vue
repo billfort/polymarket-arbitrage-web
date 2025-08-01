@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { ref, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
-import { convertUTCToLocal } from '../api/util.ts'
+import { convertUTCToLocalShort } from '../api/util.ts'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const.ts'
 import Addresses from '@/components/Addresses.vue'
 
@@ -54,7 +54,7 @@ const myGetList = async () => {
       // return
     }
     list1.map((item: any) => {
-      item.openAt = convertUTCToLocal(item.openAt)
+      item.openAt = convertUTCToLocalShort(item.openAt)
     })
 
 

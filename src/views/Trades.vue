@@ -73,7 +73,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { convertUTCToLocal } from '../api/util'
+import { convertUTCToLocalShort, convertUTCToLocalLong } from '../api/util'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const'
 import Addresses from '@/components/Addresses.vue'
 import TradePair from '@/components/TradePair.vue'
@@ -107,33 +107,39 @@ const myGetList = async () => {
     for (let i = 0; i < list.value.length; i++) {
       let t = list.value[i];
       t.slug = formatSlug(t.slug);
-      t.openAt = convertUTCToLocal(t.openAt);
-      t.closeAt = convertUTCToLocal(t.closeAt);
-      t.stopProfit1at = convertUTCToLocal(t.stopProfit1at);
-      t.stopProfit2at = convertUTCToLocal(t.stopProfit2at);
-      t.stopProfit3at = convertUTCToLocal(t.stopProfit3at);
-      t.stopProfit4at = convertUTCToLocal(t.stopProfit4at);
-      t.stopProfit5at = convertUTCToLocal(t.stopProfit5at);
-      t.stopProfit6at = convertUTCToLocal(t.stopProfit6at);
-      t.stopProfit7at = convertUTCToLocal(t.stopProfit7at);
-      t.stopProfit8at = convertUTCToLocal(t.stopProfit8at);
-      t.stopProfit9at = convertUTCToLocal(t.stopProfit9at);
-      t.stopLoss1at = convertUTCToLocal(t.stopLoss1at);
-      t.stopLoss2at = convertUTCToLocal(t.stopLoss2at);
-      t.stopLoss3at = convertUTCToLocal(t.stopLoss3at);
-      t.stopLoss4at = convertUTCToLocal(t.stopLoss4at);
-      t.stopLoss5at = convertUTCToLocal(t.stopLoss5at);
-      t.stopLoss6at = convertUTCToLocal(t.stopLoss6at);
-      t.stopLoss7at = convertUTCToLocal(t.stopLoss7at);
-      t.stopLoss8at = convertUTCToLocal(t.stopLoss8at);
-      t.stopLoss9at = convertUTCToLocal(t.stopLoss9at);
+      t.openAt = convertUTCToLocalLong(t.openAt);
+      t.closeAt = convertUTCToLocalShort(t.closeAt);
+      t.stopProfit1at = convertUTCToLocalShort(t.stopProfit1at);
+      t.stopProfit2at = convertUTCToLocalShort(t.stopProfit2at);
+      t.stopProfit3at = convertUTCToLocalShort(t.stopProfit3at);
+      t.stopProfit4at = convertUTCToLocalShort(t.stopProfit4at);
+      t.stopProfit5at = convertUTCToLocalShort(t.stopProfit5at);
+      t.stopProfit6at = convertUTCToLocalShort(t.stopProfit6at);
+      t.stopProfit7at = convertUTCToLocalShort(t.stopProfit7at);
+      t.stopProfit8at = convertUTCToLocalShort(t.stopProfit8at);
+      t.stopProfit9at = convertUTCToLocalShort(t.stopProfit9at);
+      t.stopLoss1at = convertUTCToLocalShort(t.stopLoss1at);
+      t.stopLoss2at = convertUTCToLocalShort(t.stopLoss2at);
+      t.stopLoss3at = convertUTCToLocalShort(t.stopLoss3at);
+      t.stopLoss4at = convertUTCToLocalShort(t.stopLoss4at);
+      t.stopLoss5at = convertUTCToLocalShort(t.stopLoss5at);
+      t.stopLoss6at = convertUTCToLocalShort(t.stopLoss6at);
+      t.stopLoss7at = convertUTCToLocalShort(t.stopLoss7at);
+      t.stopLoss8at = convertUTCToLocalShort(t.stopLoss8at);
+      t.stopLoss9at = convertUTCToLocalShort(t.stopLoss9at);
 
       const outcome = t.outcome;
+      const theOther = outcome == 'up' ? 'down' : 'up';
 
       let p = pairs.value.get(t.batch);
-      const theOther = outcome == 'up' ? 'down' : 'up';
       if (p) {
+
         const theOtherTrade = p[theOther];
+        if (!theOtherTrade) {
+          console.log('p: ', p)
+          console.log('theOther: ', theOther, 'theOtherTrade: ', theOtherTrade)
+          return
+        }
         if (theOtherTrade.slug == t.slug) {
           p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
           t.sumPrice = p[theOther].sumPrice;
