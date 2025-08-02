@@ -100,6 +100,8 @@ const myGetList = async () => {
   }
 
   try {
+    pairs.value = new Map();
+    list.value = [];
     loading.value = true;
     const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${address}`)
     list.value = await res.json()
@@ -133,7 +135,6 @@ const myGetList = async () => {
 
       let p = pairs.value.get(t.batch);
       if (p && !p[outcome]) {
-
         const theOtherTrade = p[theOther];
         if (!theOtherTrade) {
           console.log('p: ', p)

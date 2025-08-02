@@ -19,7 +19,7 @@ import { convertUTCToLocalShort } from '../api/util.ts'
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const.ts'
 import Addresses from '@/components/Addresses.vue'
 
-const list = ref([]);
+// const list = ref([]);
 const loading = ref(false);
 
 let chartRevenue = ref<any>(null)
@@ -41,13 +41,15 @@ const myGetList = async () => {
   }
 
   try {
+    result.value = '';
+
     loading.value = true;
     console.log('POLYMARKET_ARBITRAGE_URL asset: ', POLYMARKET_ARBITRAGE_URL)
     const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-values?address=${address}`)
-    list.value = await res.json()
-    console.log('values: ', list.value)
+    const list = await res.json()
+    console.log('values: ', list)
 
-    let list1 = list.value.reverse()
+    let list1 = list.reverse()
     let len = list1.length
 
     if (len == 0) {
