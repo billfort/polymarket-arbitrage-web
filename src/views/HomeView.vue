@@ -8,7 +8,11 @@
     <Addresses />
     <button @click="myGetList" :disabled="loading">{{ loading ? 'Loading...' : 'Get Asset Balance' }}</button>
   </div>
-  <div style="padding:1rem;">{{ result }}</div>
+  <!-- <div style="padding:1rem;">{{ result }}</div> -->
+  <div v-if="balance" class="row">
+    <div>USDCe: <span class='value'>{{ balance.usdceBalance?.toFixed(2) }}</span></div>
+    <div>Position Value: <span class='value'>{{ balance.positionsValue?.toFixed(2) }}</span></div>
+  </div>
   <div id="chartRevenue" class="chart"></div>
 </template>
 
@@ -21,7 +25,7 @@ import Addresses from '@/components/Addresses.vue'
 
 // const list = ref([]);
 const loading = ref(false);
-
+const balance = ref(null as any);
 let chartRevenue = ref<any>(null)
 let result = ref('')
 
@@ -42,10 +46,16 @@ const myGetList = async () => {
 
   try {
     result.value = '';
+    balance.value = null;
 
     loading.value = true;
     console.log('POLYMARKET_ARBITRAGE_URL asset: ', POLYMARKET_ARBITRAGE_URL)
-    const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-values?address=${address}`)
+
+    let res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-balance?address=${address}`)
+    balance.value = await res.json()
+    console.log('balance: ', balance.value)
+
+    res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/asset-values?address=${address}`)
     const list = await res.json()
     console.log('values: ', list)
 
