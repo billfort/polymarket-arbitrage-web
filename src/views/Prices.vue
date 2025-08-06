@@ -26,7 +26,7 @@
                 <td>{{ p.tokenName }}</td>
                 <td>{{ p.outcome }}</td>
                 <td style="text-align: right;">{{ p.bids.length > 0 ? p.bids[p.bids.length - 1].size : '' }}</td>
-                <td style="background-color: lightblue; text-align: right;">{{ p.bids.length > 0 ? p.bids[p.bids.length
+                <td style="background-color:beige; text-align: right;">{{ p.bids.length > 0 ? p.bids[p.bids.length
                     - 1].price : '' }}
                 </td>
                 <td style="background-color: bisque;">{{ p.asks.length > 0 ? p.asks[p.asks.length - 1].price : '' }}
@@ -36,6 +36,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="row" style="margin-top: 1rem;">{{ minSumPrice }}</div>
 
 </template>
 
@@ -47,6 +48,7 @@ const list = ref([]);
 const loading = ref(false);
 const autoRefresh = ref(false);
 const intervalId = ref(null);
+const minSumPrice = ref('');
 
 myGetList();
 
@@ -64,7 +66,6 @@ function formatSlug(slug) {
 async function myGetList() {
 
     try {
-        // list.value = [];
         const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/prices`)
         list.value = await res.json()
         // console.log('prices: ', list.value)
@@ -72,6 +73,7 @@ async function myGetList() {
         for (let i = 0; i < list.value.length; i++) {
             list.value[i].slug = formatSlug(list.value[i].slug);
         }
+        sumprice();
 
     } catch (error) {
         list.value = [];
@@ -91,6 +93,36 @@ function checkAutoRefresh() {
         console.log('clearInterval, id: ', intervalId.value);
         clearInterval(intervalId.value);
     }
+}
+
+function sumprice() {
+    const ups = []
+    const downs = []
+    for (let value of list.value) {
+        if (value.outcome == 'up') {
+            ups.push(value)
+        } else {
+            downs.push(value)
+        }
+    }
+
+    let sum = []
+    for (let i = 0; i < ups.length; i++) {
+        for (let j = 0; j < downs.length; j++) {
+            if (ups[i].tokenName != downs[j].tokenName && ups[i].askPrice > 0 && downs[j].askPrice > 0) {
+                sum.push({ up: ups[i], down: downs[j], price: ups[i].askPrice + downs[j].askPrice })
+            }
+        }
+    }
+
+    sum.sort((a, b) => a.price - b.price)
+    console.log('sum: ', sum)
+    if (sum.length == 0) {
+        minSumPrice.value = 'No arbitrage opportunities found'
+        return;
+    }
+    let i = 0;
+    minSumPrice.value = `Min: up ${sum[i].up.tokenName}, ask ${sum[i].up.askPrice}; down ${sum[i].down.tokenName}, ask ${sum[i].down.askPrice}; sum ${sum[i].price.toFixed(2)}`;
 }
 
 </script>
