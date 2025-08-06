@@ -18,10 +18,14 @@
             <tr>
                 <th>token</th>
                 <th>outcome</th>
+                <th>bid2 volume</th>
+                <th>bid2 price</th>
                 <th>bid1 volume</th>
                 <th style="text-align: right;">bid1 price</th>
                 <th>ask1 price</th>
                 <th>ask1 volume</th>
+                <th>ask2 price</th>
+                <th>ask2 volume</th>
                 <th>slug</th>
             </tr>
         </thead>
@@ -29,6 +33,8 @@
             <tr v-for="p in list" :key="p.tokenId" :style="{ color: p.outcome == 'up' ? 'red' : 'green' }">
                 <td>{{ p.tokenName }}</td>
                 <td>{{ p.outcome }}</td>
+                <td style="text-align: right;">{{ p.bids.length > 1 ? p.bids[p.bids.length - 2].size : '' }}</td>
+                <td style="text-align: right;">{{ p.bids.length > 1 ? p.bids[p.bids.length - 2].price : '' }}</td>
                 <td style="text-align: right;">{{ p.bids.length > 0 ? p.bids[p.bids.length - 1].size : '' }}</td>
                 <td style="background-color:beige; text-align: right;">{{ p.bids.length > 0 ? p.bids[p.bids.length
                     - 1].price : '' }}
@@ -36,6 +42,8 @@
                 <td style="background-color: bisque;">{{ p.asks.length > 0 ? p.asks[p.asks.length - 1].price : '' }}
                 </td>
                 <td>{{ p.asks.length > 0 ? p.asks[p.asks.length - 1].size : '' }}</td>
+                <td>{{ p.asks.length > 1 ? p.asks[p.asks.length - 2].price : '' }}</td>
+                <td>{{ p.asks.length > 1 ? p.asks[p.asks.length - 2].size : '' }}</td>
                 <td style="word-break: break-all; font-size: small;">{{ p.slug }}</td>
             </tr>
         </tbody>
