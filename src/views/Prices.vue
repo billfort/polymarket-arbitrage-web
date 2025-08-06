@@ -70,6 +70,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="row">One token price should over 0.5</div>
 
 </template>
 
