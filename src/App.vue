@@ -9,6 +9,7 @@ import Wallet from './components/Wallet.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/trades">Trade History</RouterLink>
+        <RouterLink to="/prices">Prices</RouterLink>
         <RouterLink to="/positions">Open Positions</RouterLink>
       </nav>
       <!-- <Wallet /> -->

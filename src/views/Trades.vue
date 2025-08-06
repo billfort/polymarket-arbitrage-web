@@ -11,63 +11,6 @@
   <div v-for="(value, key) in pairs" :key="key">
     <TradePair :pair="value" />
   </div>
-  <!-- <table v-if="list" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
-    border="1">
-    <thead>
-      <tr>
-        <th>batch</th>
-        <th>crypto</th>
-        <th>outcome</th>
-        <th>slug(ET)</th>
-        <th>openAt</th>
-        <th>openPrice</th>
-        <th>sumPrice</th>
-        <th>size</th>
-        <th>openVal</th>
-        <th>closeAt</th>
-        <th>closeVal</th>
-        <th>PnL</th>
-        <th>Balance</th>
-        <th>CloseBy</th>
-        <th>stopProfit1</th>
-        <th>stopProfit2</th>
-        <th>stopProfit3</th>
-        <th>stopProfit4</th>
-        <th>stopProfit5</th>
-        <th>stopProfit6</th>
-        <th>stopProfit7</th>
-        <th>stopProfit8</th>
-        <th>stopProfit9</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="p in list" :key="p.id">
-        <td style="word-break: break-all; font-size: small;">{{ p.batch }}</td>
-        <td style="word-break: break-all; font-size: small;">{{ p.crypto }}</td>
-        <td style="word-break: break-all; font-size: small;">{{ p.outcome }}</td>
-        <td style="word-break: break-all; font-size: small;">{{ p.slug }}</td>
-        <td>{{ p.openAt }}</td>
-        <td style="width: 2rem;">{{ Number(p.openPrice).toFixed(2) }}</td>
-        <td style="width: 2rem;">{{ Number(p.sumPrice).toFixed(2) }}</td>
-        <td style="width: 3rem;">{{ Number(p.openSize).toFixed(2) }}</td>
-        <td style="width: 3rem;">{{ Number(p.openValue).toFixed(2) }}</td>
-        <td>{{ p.closeAt }}</td>
-        <td style="width: 3rem;">{{ Number(p.closeValue).toFixed(2) }}</td>
-        <td style="width: 3rem;">{{ Number(p.pnl).toFixed(2) }}</td>
-        <td style="width: 3rem;">{{ Number(p.assetValue).toFixed(1) }}</td>
-        <td>{{ p.closeBy }}</td>
-        <td>{{ p.stopProfit1at }}</td>
-        <td>{{ p.stopProfit2at }}</td>
-        <td>{{ p.stopProfit3at }}</td>
-        <td>{{ p.stopProfit4at }}</td>
-        <td>{{ p.stopProfit5at }}</td>
-        <td>{{ p.stopProfit6at }}</td>
-        <td>{{ p.stopProfit7at }}</td>
-        <td>{{ p.stopProfit8at }}</td>
-        <td>{{ p.stopProfit9at }}</td>
-      </tr>
-    </tbody>
-  </table> -->
 
 </template>
 
