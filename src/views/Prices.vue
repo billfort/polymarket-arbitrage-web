@@ -1,10 +1,14 @@
 <template>
 
     <div class="row">
-        <div style="display: flex; align-items: center;  width: 200px;">
+        <div style="display: flex; align-items: center;  width: 250px;">
+            <input v-if="autoRefresh" type="text" v-model="interval" placeholder="seconds"
+                style="width: 2rem; height: 20px; padding: 2px; text-align: center;" />
+            <span v-if='autoRefresh'>seconds</span>
             <label for="myCheckbox" style="width: 140px; text-align: right;">auto refresh</label>
             <input type="checkbox" id="myCheckbox" name="option1" v-model="autoRefresh"
                 style="width: 20px; height: 20px; margin-left: 10px;" @click="checkAutoRefresh" />
+
         </div>
         <button @click="myGetList">refresh</button>
     </div>
@@ -37,6 +41,35 @@
         </tbody>
     </table>
     <div class="row" style="margin-top: 1rem;">{{ minSumPrice }}</div>
+    <table v-if="configs" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
+        border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>start trade minute</th>
+                <th>end trade minute</th>
+                <th>sum price low</th>
+                <th>sum price high</th>
+                <th>trade amount percent</th>
+                <th>min trade amount</th>
+                <th>stop loss percent</th>
+                <th>take profit sum price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(p, index) in configs" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ p.startTradeMinute }}</td>
+                <td>{{ p.endTradeMinute }}</td>
+                <td>{{ p.sumPriceLow }}</td>
+                <td>{{ p.sumPriceHigh }} </td>
+                <td>{{ p.tradeAmountPercent }} </td>
+                <td>{{ p.minTradeAmount }}</td>
+                <td>{{ p.stopLossPercent }}</td>
+                <td>{{ p.takeProfitSumPrice }}</td>
+            </tr>
+        </tbody>
+    </table>
 
 </template>
 
@@ -45,12 +78,14 @@ import { ref } from 'vue';
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const'
 
 const list = ref([]);
-const loading = ref(false);
+const configs = ref([]);
 const autoRefresh = ref(false);
 const intervalId = ref(null);
 const minSumPrice = ref('');
+const interval = ref(5); // default interval in seconds
 
 myGetList();
+myGetConfig();
 
 function formatSlug(slug) {
     let arr = slug.split('-');
@@ -64,7 +99,6 @@ function formatSlug(slug) {
 
 
 async function myGetList() {
-
     try {
         const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/prices`)
         list.value = await res.json()
@@ -82,12 +116,31 @@ async function myGetList() {
     }
 }
 
+async function myGetConfig() {
+    try {
+        const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/config`)
+        configs.value = await res.json()
+        console.log('configs: ', configs.value)
+
+    } catch (error) {
+        list.value = [];
+        console.error(error)
+        alert('Fail to fetch prices')
+    }
+}
+
 function checkAutoRefresh() {
     autoRefresh.value = !autoRefresh.value;
     console.log('autoRefresh: ', autoRefresh.value);
     if (autoRefresh.value) {
         myGetList();
-        intervalId.value = setInterval(myGetList, 10000);
+        if (intervalId.value) {
+            clearInterval(intervalId.value);
+        }
+        if (interval.value <= 1 || isNaN(interval.value)) {
+            interval.value = 6; // default to 6 seconds if invalid
+        }
+        intervalId.value = setInterval(myGetList, interval.value * 1000);
         console.log('setInterval, id: ', intervalId.value);
     } else {
         console.log('clearInterval, id: ', intervalId.value);
