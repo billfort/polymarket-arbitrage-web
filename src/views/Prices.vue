@@ -41,6 +41,7 @@
         </tbody>
     </table>
     <div class="row" style="margin-top: 1rem;">{{ minSumPrice }}</div>
+    <div class="row">One token price should be greater than 0.5</div>
     <table v-if="configs" class="info" style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; "
         border="1">
         <thead>
@@ -70,7 +71,6 @@
             </tr>
         </tbody>
     </table>
-    <div class="row">One token price should over 0.5</div>
 
 </template>
 
