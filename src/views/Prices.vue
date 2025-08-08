@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import { POLYMARKET_ARBITRAGE_URL } from '../api/const'
 
 const list = ref([]);
@@ -95,6 +95,12 @@ const interval = ref(5); // default interval in seconds
 
 myGetList();
 myGetConfig();
+
+onUnmounted(() => {
+    if (intervalId.value) {
+        clearInterval(intervalId.value);
+    }
+});
 
 function formatSlug(slug) {
     let arr = slug.split('-');
