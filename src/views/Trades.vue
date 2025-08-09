@@ -51,6 +51,7 @@ const myGetList = async () => {
 
     for (let i = 0; i < list.value.length; i++) {
       let t = list.value[i];
+      t.outcome = t.outcome.toLowerCase();
       t.slug = formatSlug(t.slug);
       t.openAt = convertUTCToLocalLong(t.openAt);
       t.closeAt = convertUTCToLocalShort(t.closeAt);

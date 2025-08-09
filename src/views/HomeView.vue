@@ -70,13 +70,17 @@ const myGetList = async () => {
     })
 
 
-    let xdata1 = list1.map((item: any) => {
-      return (item.openAt.substring(5, 13).replace('T', ' '))
-    })
-
-    let ydata1 = list1.map((item: any) => {
-      return (item.assetValue.toFixed(1))
-    })
+    const times = new Set()
+    let xdata1 = []
+    let ydata1 = []
+    for (let item of list1) {
+      let d = item.openAt.substring(0, 13).replace('T', ' ')
+      if (!times.has(d)) {
+        times.add(d)
+        xdata1.push(d)
+        ydata1.push(item.assetValue.toFixed(1))
+      }
+    }
 
     chartRevenue.value = echarts.init(document.getElementById("chartRevenue"));
 

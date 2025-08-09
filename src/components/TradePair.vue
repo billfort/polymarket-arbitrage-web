@@ -30,14 +30,14 @@
                     <td>{{ up.outcome }}</td>
                     <td>{{ up.slug }}</td>
                     <td>{{ up.openPrice?.toFixed(2) }}</td>
-                    <td>{{ up.expectOpenPrice }}</td>
+                    <td>{{ up.expectOpenPrice.toFixed(2) }}</td>
                     <td>{{ up.openSize?.toFixed(2) }}</td>
-                    <td>{{ up.expectOpenSize }}</td>
+                    <td>{{ up.expectOpenSize.toFixed(2) }}</td>
                     <td>{{ up.closeAt }}</td>
                     <td>{{ up.closePrice ? up.closePrice?.toFixed(2) : '' }}</td>
-                    <td>{{ up.expectClosePrice ? up.expectClosePrice : '' }}</td>
+                    <td>{{ up.expectClosePrice ? up.expectClosePrice.toFixed(2) : '' }}</td>
                     <td>{{ up.closeSize ? up.closeSize?.toFixed(2) : '' }}</td>
-                    <td>{{ up.expectCloseSize ? up.expectCloseSize : '' }}</td>
+                    <td>{{ up.expectCloseSize ? up.expectCloseSize.toFixed(2) : '' }}</td>
                     <td>{{ up.pnl ? up.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ up.closeBy }}</td>
                 </tr>
@@ -48,12 +48,12 @@
                     <td>{{ down.openPrice?.toFixed(2) }}</td>
                     <td>{{ down.expectOpenPrice }}</td>
                     <td>{{ down.openSize ? down.openSize?.toFixed(2) : '' }}</td>
-                    <td>{{ down.expectOpenSize ? down.expectOpenSize : '' }}</td>
+                    <td>{{ down.expectOpenSize ? down.expectOpenSize.toFixed(2) : '' }}</td>
                     <td>{{ down.closeAt }}</td>
                     <td>{{ down.closePrice ? down.closePrice?.toFixed(2) : '' }}</td>
                     <td>{{ down.expectClosePrice ? down.expectClosePrice : '' }}</td>
                     <td>{{ down.closeSize ? down.closeSize?.toFixed(2) : '' }}</td>
-                    <td>{{ down.expectCloseSize ? down.expectCloseSize : '' }}</td>
+                    <td>{{ down.expectCloseSize ? down.expectCloseSize.toFixed(2) : '' }}</td>
                     <td>{{ down.pnl ? down.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ down.closeBy }}</td>
                 </tr>
