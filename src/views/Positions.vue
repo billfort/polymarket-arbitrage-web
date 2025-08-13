@@ -68,7 +68,9 @@ const myGetUserPosition = async () => {
     try {
         loading.value = true;
         positions.value = await getUserPosition(address)
-        positions.value = positions.value.filter(p => p.title.indexOf(positionFilter.value) > 0)
+        if (positionFilter.value) {
+            positions.value = positions.value.filter(p => p.title.indexOf(positionFilter.value) >= 0)
+        }
         positions.value = positions.value.map((p) => {
             p.title = p.title.replace('Up or Down ', '')
             return p;
