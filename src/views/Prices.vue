@@ -117,7 +117,7 @@ async function myGetList() {
     try {
         const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/prices`)
         list.value = await res.json()
-        // console.log('prices: ', list.value)
+        console.log('prices: ', list.value)
 
         for (let i = 0; i < list.value.length; i++) {
             list.value[i].slug = formatSlug(list.value[i].slug);

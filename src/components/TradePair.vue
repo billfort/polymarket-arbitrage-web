@@ -113,8 +113,8 @@ const props = defineProps({
 })
 
 const pub = ref(props.pair[1].pub);
-const down = ref(props.pair[1].down);
-const up = ref(props.pair[1].up);
+const down = ref(props.pair[1].down || props.pair[1].no);
+const up = ref(props.pair[1].up || props.pair[1].yes);
 
 </script>
 
