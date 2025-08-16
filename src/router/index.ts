@@ -8,6 +8,7 @@ const router = createRouter({
     { path: '/trades', name: 'trades', component: () => import('../views/Trades.vue') },
     { path: '/prices', name: 'prices', component: () => import('../views/Prices.vue') },
     { path: '/positions', name: 'positions', component: () => import('../views/Positions.vue') },
+    { path: '/policy-param', name: 'policy-param', component: () => import('../views/PolicyParam.vue') },
   ],
 })
 
