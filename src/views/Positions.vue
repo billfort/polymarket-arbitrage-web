@@ -52,12 +52,12 @@ let date = time.toLocaleTimeString('en-US', {
     month: 'long', day: 'numeric'
 });
 // console.log('date: ', date)
-date = date.replace(' at', ',')
-date = date.replace(' AM', 'AM')
-date = date.replace(' PM', 'PM')
-console.log('date: ', date)
-const arr = date.split(',')
-positionFilter.value = arr[0]
+// date = date.replace(' at', ',')
+// date = date.replace(' AM', 'AM')
+// date = date.replace(' PM', 'PM')
+// console.log('date: ', date)
+// const arr = date.split(',')
+// positionFilter.value = arr[0]
 
 const myGetUserPosition = async () => {
     let address = localStorage.getItem('address');

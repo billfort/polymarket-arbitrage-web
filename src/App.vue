@@ -12,6 +12,7 @@ import Wallet from './components/Wallet.vue'
         <RouterLink to="/prices">Prices</RouterLink>
         <RouterLink to="/positions">Open Positions</RouterLink>
         <RouterLink to="/policy-param">Policy Config</RouterLink>
+        <RouterLink to="/asset-values">Asset Values</RouterLink>
       </nav>
       <!-- <Wallet /> -->
     </div>

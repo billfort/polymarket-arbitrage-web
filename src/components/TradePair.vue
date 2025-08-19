@@ -1,6 +1,7 @@
 <template>
     <div class="box">
         <div class="row-left" style="font-weight: bold;">
+            <div>trade id: <span class="value">{{ pub.id }}</span></div>
             <div>batch: <span class="value">{{ pub.batch }}</span></div>
             <div>sum of open price: <span class="value">{{ pub.sumPrice?.toFixed(2) }}</span></div>
             <div>open at: <span class="value">{{ pub.openAt }}</span></div>
@@ -22,6 +23,7 @@
                     <th>exp close size</th>
                     <th>pnl</th>
                     <th>closed by</th>
+                    <th>asset value</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +42,7 @@
                     <td>{{ up.expectCloseSize ? up.expectCloseSize.toFixed(2) : '' }}</td>
                     <td>{{ up.pnl ? up.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ up.closeBy }}</td>
+                    <td>{{ up.assetValue?.toFixed(2) }}</td>
                 </tr>
                 <tr v-if="down" style="color: green;">
                     <td>{{ down.crypto }}</td>
@@ -56,11 +59,12 @@
                     <td>{{ down.expectCloseSize ? down.expectCloseSize.toFixed(2) : '' }}</td>
                     <td>{{ down.pnl ? down.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ down.closeBy }}</td>
+                    <td>{{ down.assetValue?.toFixed(2) }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <table style="margin-top: 10px;">
+        <table v-if="pub.policy != '90policy'" style="margin-top: 10px;">
             <thead>
                 <tr>
                     <th>stop profit/loss</th>
