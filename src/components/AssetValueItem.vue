@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th>Trade ID</th>
+                    <th style="width: 40%;">Slug</th>
                     <th>DateTime</th>
                     <th>Total Value</th>
                     <th>USDCe Value</th>
@@ -13,14 +14,15 @@
             <tbody>
                 <tr >
                     <td>{{ v.id }}</td>
+                    <td>{{ v.slug }}</td>
                     <td>{{ v.openAt }}</td>
-                    <td>{{ v.assetValue?.toFixed(2) }}</td>
+                    <td style="color: green; font-weight: bold;">{{ v.assetValue?.toFixed(2) }}</td>
                     <td>{{ v.usdcValue?.toFixed(2) }}</td>
                     <td>{{ v.positionValue?.toFixed(2) }}</td>
                 </tr>
             </tbody>
         </table>
-        <table v-if="v.positions.length > 0">
+        <table v-if="v.positions && v.positions.length > 0">
             <thead>
                 <tr>
                     <th>Position ID</th>
