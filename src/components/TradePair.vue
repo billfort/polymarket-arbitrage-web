@@ -24,6 +24,9 @@
                     <th>pnl</th>
                     <th>closed by</th>
                     <th>asset value</th>
+                    <th>pol value</th>
+                    <th>Open Fee</th>
+                    <th>Close Fee</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +46,9 @@
                     <td>{{ up.pnl ? up.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ up.closeBy }}</td>
                     <td>{{ up.assetValue?.toFixed(2) }}</td>
+                    <td>{{ up.polValue?.toFixed(2) }}</td>
+                    <td>{{ up.openFee?.toFixed(2) }}</td>
+                    <td>{{ up.closeFee?.toFixed(2) }}</td>
                 </tr>
                 <tr v-if="down" style="color: green;">
                     <td>{{ down.crypto }}</td>
@@ -60,6 +66,9 @@
                     <td>{{ down.pnl ? down.pnl?.toFixed(2) : '' }}</td>
                     <td>{{ down.closeBy }}</td>
                     <td>{{ down.assetValue?.toFixed(2) }}</td>
+                    <td>{{ down.polValue?.toFixed(2) }}</td>
+                    <td>{{ down.openFee?.toFixed(2) }}</td>
+                    <td>{{ down.closeFee?.toFixed(2) }}</td>
                 </tr>
             </tbody>
         </table>

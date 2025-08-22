@@ -6,9 +6,10 @@
                     <th>Trade ID</th>
                     <th style="width: 40%;">Slug</th>
                     <th>DateTime</th>
-                    <th>Total Value</th>
-                    <th>USDCe Value</th>
-                    <th>Positions Value</th>
+                    <th>USDC + Positions</th>
+                    <th>USDCe</th>
+                    <th>Positions</th>
+                    <th>Pol</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@
                     <td style="color: green; font-weight: bold;">{{ v.assetValue?.toFixed(2) }}</td>
                     <td>{{ v.usdcValue?.toFixed(2) }}</td>
                     <td>{{ v.positionValue?.toFixed(2) }}</td>
+                    <td>{{ v.polValue?.toFixed(2) }}</td>
                 </tr>
             </tbody>
         </table>
