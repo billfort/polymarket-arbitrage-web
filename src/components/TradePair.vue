@@ -67,8 +67,8 @@
                     <td>{{ down.closeBy }}</td>
                     <td>{{ down.assetValue?.toFixed(2) }}</td>
                     <td>{{ down.polValue?.toFixed(2) }}</td>
-                    <td>{{ down.openFee?.toFixed(2) }}</td>
-                    <td>{{ down.closeFee?.toFixed(2) }}</td>
+                    <td>{{ down.openFee?.toFixed(4) }}</td>
+                    <td>{{ down.closeFee?.toFixed(4) }}</td>
                 </tr>
             </tbody>
         </table>

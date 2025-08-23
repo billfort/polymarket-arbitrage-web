@@ -11,7 +11,7 @@
   <!-- <div style="padding:1rem;">{{ result }}</div> -->
   <div v-if="balance" class="row">
     <div style="margin-right: 2rem;">USDCe: <span class='value'>{{ balance.usdceBalance?.toFixed(2) }}</span></div>
-    <div>Position Value: <span class='value'>{{ balance.positionsValue?.toFixed(2) }}</span></div>
+    <div>Position Value: <span class='value'>{{ balance.positionBalance?.toFixed(2) }}</span></div>
   </div>
   <div id="chartRevenue" class="chart"></div>
 </template>
