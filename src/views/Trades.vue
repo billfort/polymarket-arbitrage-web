@@ -48,6 +48,7 @@ const myGetList = async () => {
     loading.value = true;
     const res = await fetch(`${POLYMARKET_ARBITRAGE_URL}/api/trades?address=${address}`)
     list.value = await res.json()
+    console.log('list: ', list.value)
 
     for (let i = 0; i < list.value.length; i++) {
       let t = list.value[i];
@@ -75,29 +76,36 @@ const myGetList = async () => {
       t.stopLoss9at = convertUTCToLocalShort(t.stopLoss9at);
 
       const outcome = t.outcome;
-      const theOther = outcome == 'up' ? 'down' : 'up';
+      if (t.policy == 'crypto-pair') {
+        const theOther = outcome == 'up' ? 'down' : 'up';
 
-      let p = pairs.value.get(t.batch);
-      if (p && !p[outcome]) {
-        const theOtherTrade = p[theOther];
-        if (!theOtherTrade) {
-          console.log('p: ', p)
-          console.log('theOther: ', theOther, 'theOtherTrade: ', theOtherTrade)
-          return
-        }
-        if (theOtherTrade.slug == t.slug) {
-          p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
-          t.sumPrice = p[theOther].sumPrice;
-          p[outcome] = t;
+        let p = pairs.value.get(t.batch);
+        if (p && !p[outcome]) {
+          const theOtherTrade = p[theOther];
+          if (!theOtherTrade) {
+            console.log('p: ', p)
+            console.log('theOther: ', theOther, 'theOtherTrade: ', theOtherTrade)
+            return
+          }
+          if (theOtherTrade.slug == t.slug) {
+            p[theOther].sumPrice = Number(p[theOther].openPrice) + Number(t.openPrice);
+            t.sumPrice = p[theOther].sumPrice;
+            p[outcome] = t;
+          }
+        } else {
+          const m = {};
+          m[outcome] = t
+          m.pub = t
+          pairs.value.set(t.batch, m);
         }
       } else {
         const m = {};
         m[outcome] = t
         m.pub = t
-        pairs.value.set(t.batch, m);
+        pairs.value.set(t.id, m);
       }
+      console.log('pairs: ', pairs.value)
     }
-    console.log('pairs: ', pairs.value)
   } catch (error) {
     console.error(error)
     alert('Fail to fetch trades')

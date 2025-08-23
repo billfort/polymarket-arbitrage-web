@@ -2,8 +2,8 @@
     <div class="box">
         <div class="row-left" style="font-weight: bold;">
             <div>trade id: <span class="value">{{ pub.id }}</span></div>
-            <div>batch: <span class="value">{{ pub.batch }}</span></div>
-            <div>sum of open price: <span class="value">{{ pub.sumPrice?.toFixed(2) }}</span></div>
+            <div v-if="pub.batch">batch: <span class="value">{{ pub.batch }}</span></div>
+            <div v-if="pub.sumPrice">sum of open price: <span class="value">{{ pub.sumPrice?.toFixed(2) }}</span></div>
             <div>open at: <span class="value">{{ pub.openAt }}</span></div>
         </div>
         <table>
@@ -73,7 +73,7 @@
             </tbody>
         </table>
 
-        <table v-if="pub.policy != '90policy'" style="margin-top: 10px;">
+        <table v-if="pub.policy == 'crypto-pair'" style="margin-top: 10px;">
             <thead>
                 <tr>
                     <th>stop profit/loss</th>
